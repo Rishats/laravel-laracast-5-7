@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,12 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->describe('Display an inspiring quote');
+Artisan::command('make:user', function () {
+    $user = User::forceCreate([
+        'name' => $this->ask('What name should we use?'),
+        'email' => $this->ask('And which email should we use?'),
+        'password' => bcrypt($this->secret('And the password?')),
+    ]);
+
+    $this->info("The {$user->name} user has been created.");
+})->describe('Persist a new user to the db.');
