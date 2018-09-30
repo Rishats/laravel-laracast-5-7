@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// php artisan dump-server then go to this route and you will see dump in console.
+Route::get('/dump', function () {
+    dump('hello world');
+    return view('welcome');
+});
